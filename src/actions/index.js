@@ -25,7 +25,7 @@ export function fetchData() {
       //console.log(data, data.data.languageList, data.data.moviesData);
       dispatch(fetchSuccess(data.data.moviesData, data.data.languageList));
     } catch (error) {
-      dispatch(fetchFailure());
+      dispatch(fetchFailure(error));
     }
   };
 }
@@ -38,9 +38,10 @@ export function fetchSuccess(movies, languages) {
   };
 }
 
-export function fetchFailure() {
+export function fetchFailure(error) {
   return {
-    type: FETCH_MOVIES_FAILURE
+    type: FETCH_MOVIES_FAILURE,
+    error
   };
 }
 

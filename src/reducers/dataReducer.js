@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   loading: false,
+  error: '',
   movies: [],
   languages: []
 };
@@ -26,7 +27,8 @@ export default function dataReducer(state = initialState, action) {
     case FETCH_MOVIES_FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        error: action.error
       };
     default:
       return state;
