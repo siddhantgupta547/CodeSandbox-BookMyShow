@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import './styles.css';
 import { fetchData } from '../src/actions';
+import Navbar from './components/navbar/Navbar';
+import Home from './components/home/Home';
 
 function App({ data, dispatch }) {
   useEffect(() => {
@@ -15,8 +17,8 @@ function App({ data, dispatch }) {
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <Navbar languages={data.langauges} />
+      <Home movies={data.movies} />
     </div>
   );
 }

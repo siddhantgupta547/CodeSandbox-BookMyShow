@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import configureStore from '../store';
+import configureStore from './store';
 import { Provider } from 'react-redux';
 
 const store = configureStore();
