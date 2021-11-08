@@ -5,7 +5,7 @@ import Row from '../rows/Row';
 
 const Home = ({ movies }) => {
   const [reSize, setreSize] = useState(window.innerWidth);
-  const [rows, setRows] = useState(48);
+  const [rows, setRows] = useState(41);
 
   const filters = {
     EventLanguage: ['Hindi', 'English'],
@@ -23,7 +23,7 @@ const Home = ({ movies }) => {
   };
 
   const noOfCols = () => {
-    return Math.floor(reSize / 200);
+    return Math.floor(reSize / 250);
   };
 
   const createRows = () => {
@@ -35,11 +35,14 @@ const Home = ({ movies }) => {
 
   const mapRows = () => {
     const slicedArray = [];
+
     const data = Object.values(movies);
+    console.log('worked', data, rows);
+    const cols = noOfCols();
     for (let i = 0; i < rows; i++) {
-      slicedArray.push(data.slice(i * rows, i * rows + rows));
+      slicedArray.push(data.slice(i * cols, i * cols + cols));
     }
-    console.log(rows, 'Slice');
+    console.log(slicedArray, 'Slice', reSize);
     return slicedArray;
   };
 
@@ -54,7 +57,7 @@ const Home = ({ movies }) => {
       </div>
       <div className="movies-container">
         {mapRows().map((rowData, index) => {
-          return <Row movies={rowData} key={`row${index}`} />;
+          return <Row movies={rowData} id={index} key={`row${index}`} />;
         })}
       </div>
     </div>
