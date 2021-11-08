@@ -1,11 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Home.styles.scss';
 
 import Row from '../rows/Row';
 
+const noOfCols = (width = window.innerWidth) => {
+  console.log('func', width);
+  return Math.floor(width / 250);
+};
+
 const Home = ({ movies }) => {
-  const [reSize, setreSize] = useState(window.innerWidth);
-  const [rows, setRows] = useState(41);
+  console.log('Comp');
+  const [cols, setCols] = useState(noOfCols());
+  const [rows, setRows] = useState(0);
+  //const [reSize, setResize]= useState('');
+
+  useEffect(() => {
+    window.addEventListener('resize', updateCols);
+    return () => {
+      window.removeEventListener('resize', updateCols);
+    };
+  }, []);
+
+  const updateCols = () => {
+    setTimeout(() => {
+      let newCols = noOfCols(window.innerWidth);
+      if (newCols !== cols) {
+        setCols(newCols);
+      }
+    }, 50);
+  };
+
+  const createRows = () => {
+    const data = Object.values(movies);
+    const size = data.length;
+    const newRows = Math.ceil(size / cols);
+    console.log('called');
+    if (rows !== newRows) {
+      setRows(newRows);
+    }
+    //setRows(rows);
+  };
+  createRows();
 
   const filters = {
     EventLanguage: ['Hindi', 'English'],
@@ -22,17 +57,6 @@ const Home = ({ movies }) => {
     return filtersSection;
   };
 
-  const noOfCols = () => {
-    return Math.floor(reSize / 250);
-  };
-
-  const createRows = () => {
-    const data = Object.values(movies);
-    const size = data.length;
-    const rows = Math.ceil(size / noOfCols());
-    setRows(rows);
-  };
-
   const mapRows = () => {
     const slicedArray = [];
 
@@ -42,7 +66,7 @@ const Home = ({ movies }) => {
     for (let i = 0; i < rows; i++) {
       slicedArray.push(data.slice(i * cols, i * cols + cols));
     }
-    console.log(slicedArray, 'Slice', reSize);
+    console.log(slicedArray, 'Slice');
     return slicedArray;
   };
 
@@ -57,7 +81,7 @@ const Home = ({ movies }) => {
       </div>
       <div className="movies-container">
         {mapRows().map((rowData, index) => {
-          return <Row movies={rowData} id={index} key={`row${index}`} />;
+          return <Row movies={rowData} key={`row${index}`} />;
         })}
       </div>
     </div>
