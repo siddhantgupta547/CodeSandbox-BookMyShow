@@ -15,16 +15,19 @@ export function fetchStart() {
   };
 }
 
+//fetch data function would return a function handled by redux-thunk.
 export function fetchData() {
   return async function (dispatch) {
+    //start action is dispatched to set loading=true;
     dispatch(fetchStart());
+    //try catch is used  to handle if any error occurs while getting th data from API
     try {
       const data = await axios.get(
         'https://peaceful-forest-62260.herokuapp.com/'
       );
-      //console.log(data, data.data.languageList, data.data.moviesData);
       dispatch(fetchSuccess(data.data.moviesData, data.data.languageList));
     } catch (error) {
+      // if error occurs then fetch failre is returned to display error.
       dispatch(fetchFailure(error));
     }
   };
@@ -49,16 +52,18 @@ export function fetchFailure(error) {
 
 // Action Generators of filters
 
-export function addFilter(value) {
+export function addFilter(key, value) {
   return {
     type: ADD_FILTER,
+    key,
     value
   };
 }
 
-export function removeFilter(value) {
+export function removeFilter(key, value) {
   return {
     type: REMOVE_FILTER,
+    key,
     value
   };
 }

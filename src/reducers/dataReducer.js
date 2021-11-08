@@ -11,6 +11,7 @@ const initialState = {
   languages: []
 };
 
+//Actions would set the data into movies and languages and would get loading to be true or false.
 export default function dataReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_MOVIES_START:
