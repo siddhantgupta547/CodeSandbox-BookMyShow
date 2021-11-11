@@ -3,13 +3,14 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import './MovieCard.styles.scss';
 
-const MovieCard = ({ movie, handleClick }) => {
+const MovieCard = ({ movie, handleClick, rowId, key }) => {
   return (
     <div className="movie">
       <div
         className="movie-card"
         id={movie.EventCode}
-        key={movie.EventCode}
+        rowid={rowId}
+        key={key}
         onClick={(e) => handleClick(e, movie)}
       >
         {/* Lazy Load library is used to lazy load all the images */}

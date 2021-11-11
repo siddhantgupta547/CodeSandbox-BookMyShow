@@ -4,7 +4,7 @@ import YouTube from 'react-youtube';
 import MovieCard from '../movieCard/MovieCard';
 import './Row.styles.scss';
 
-const Row = ({ movies }) => {
+const Row = ({ movies, id }) => {
   const [trailerId, settrailerId] = useState('');
   const [clickedMovie, setclickedMovie] = useState('');
 
@@ -52,8 +52,16 @@ const Row = ({ movies }) => {
           </div>
         )
       }
-      {movies.map((movie) => {
-        return <MovieCard movie={movie} handleClick={handleClick} />;
+      {movies.map((movie, index) => {
+        //console.log(movie, 'movie', id);
+        return (
+          <MovieCard
+            movie={movie}
+            handleClick={handleClick}
+            key={`mc${index}`}
+            rowId={id}
+          />
+        );
       })}
     </div>
   );

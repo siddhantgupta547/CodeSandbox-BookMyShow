@@ -69,7 +69,7 @@ const Home = ({ movies, filters }) => {
       </div>
       <div className="movies-container">
         {mapRows().map((rowData, index) => {
-          return <Row movies={rowData} key={`row${index}`} />; //for all the rows
+          return <Row movies={rowData} rowId={index} key={`row${index}`} />; //for all the rows
         })}
       </div>
     </div>
